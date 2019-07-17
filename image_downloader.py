@@ -14,13 +14,15 @@ def main():
         raw_data.readline() # ignore header line by reading it
         counter = 1
         while counter <= COUNT_IMAGES_TO_DOWNLOAD:
-            fetch_and_save_image(raw_data.readline())
-            counter += 1
+            success = fetch_and_save_image(raw_data.readline())
+            if success:
+                counter += 1
+                print('Download #', counter)
 
 def fetch_and_save_image(raw_data_line):
     url = get_image_url(raw_data_line)
     filename_with_path = get_filename_with_path(url)
-    download_image(url, filename_with_path)
+    return download_image(url, filename_with_path)
 
 def get_image_url(raw_data_line):
     return 'http:' + raw_data_line.split(',')[4].replace("\"", '')
@@ -29,8 +31,12 @@ def get_filename_with_path(url):
     return PATH_TO_STORE_DOWNLOADED_IMAGES + url.split('/')[5]
 
 def download_image(url, filename):
-    with urllib.request.urlopen(url) as response, open(filename, 'wb') as saving_file:
-        shutil.copyfileobj(response, saving_file)
+    try:
+        with urllib.request.urlopen(url) as response, open(filename, 'wb') as saving_file:
+            shutil.copyfileobj(response, saving_file)
+            return True
+    except urllib.error.HTTPError as e:
+        return False
 
 if __name__ == '__main__':
     main()
