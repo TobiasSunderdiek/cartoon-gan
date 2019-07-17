@@ -21,8 +21,11 @@ def main():
 
 def fetch_and_save_image(raw_data_line):
     url = get_image_url(raw_data_line)
-    filename_with_path = get_filename_with_path(url)
-    return download_image(url, filename_with_path)
+    if url.endswith(".jpg"): # download jpg only
+        filename_with_path = get_filename_with_path(url)
+        return download_image(url, filename_with_path)
+    else:
+        return False
 
 def get_image_url(raw_data_line):
     return 'http:' + raw_data_line.split(',')[4].replace("\"", '')
