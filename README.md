@@ -7,7 +7,8 @@ Due to copyright reasons I tried to find an alternative dataset, which I have fo
 - download `all_data.csv` from safebooru dataset
 - configure path of this file in `PATH_TO_SAFEBOORU_ALL_DATA_CSV`
 - configure where to store images in `PATH_TO_STORE_DOWNLOADED_IMAGES`
-- run `image_downloader.py` to download first 1.000 medium size images to folder `raw_images`
+- run `image_downloader.py` to download first 1.000 medium size images
 
 [1] https://s3.amazonaws.com/video.udacity-data.com/topher/2018/November/5bea23cd_cartoongan/cartoongan.pdf
+
 [2] https://www.kaggle.com/alamson/safebooru
