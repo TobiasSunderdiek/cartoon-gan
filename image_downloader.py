@@ -36,6 +36,7 @@ def download_image(url, filename):
             shutil.copyfileobj(response, saving_file)
             return True
     except urllib.error.HTTPError as e:
+        print(e)
         return False
 
 if __name__ == '__main__':
