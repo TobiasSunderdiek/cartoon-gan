@@ -2,3 +2,4 @@ all_data.csv
 safebooru/
 .idea/
 *.iml
+.DS_STORE
