@@ -4,6 +4,7 @@ import os
 
 PATH_TO_SAFEBOORU_ALL_DATA_CSV = './all_data.csv'
 PATH_TO_STORE_DOWNLOADED_IMAGES = './safebooru/'
+IMAGES_ZIPFILE_NAME = './safebooru'
 COUNT_IMAGES_TO_DOWNLOAD = 1500
 
 def main():
@@ -18,6 +19,10 @@ def main():
             if success:
                 counter += 1
                 print('Download #', counter)
+        zip_images()
+
+def zip_images():
+    shutil.make_archive(IMAGES_ZIPFILE_NAME, 'zip', PATH_TO_STORE_DOWNLOADED_IMAGES)
 
 def init_counter():
     if not os.path.exists(PATH_TO_STORE_DOWNLOADED_IMAGES):

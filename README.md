@@ -13,6 +13,7 @@ Due to copyright reasons I tried to find an alternative dataset, which I have fo
 - download `all_data.csv` from safebooru dataset
 - configure path of this file in `PATH_TO_SAFEBOORU_ALL_DATA_CSV`
 - configure where to store images in `PATH_TO_STORE_DOWNLOADED_IMAGES`
+- configure where to store resulting .zip-file of images in `IMAGES_ZIPFILE_NAME`
 - run `image_downloader.py` to download configurable amount of medium size images
 
 ### Photos
