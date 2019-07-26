@@ -4,3 +4,6 @@ safebooru/
 *.iml
 .DS_STORE
 safebooru.zip
+annotations/
+photos/
+__pycache__/
