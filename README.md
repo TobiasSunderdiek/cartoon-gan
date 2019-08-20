@@ -13,8 +13,19 @@ Due to copyright reasons I tried to find an alternative dataset, which I have fo
 - download `all_data.csv` from safebooru dataset
 - configure path of this file in `PATH_TO_SAFEBOORU_ALL_DATA_CSV`
 - configure where to store images in `PATH_TO_STORE_DOWNLOADED_CARTOON_IMAGES`
-- configure where to store resulting .zip-file of images in `CARTOON_IMAGES_ZIPFILE_NAME`
-- run `cartoon_image_downloader.py` to download configurable amount of medium size images
+`- run `cartoon_image_downloader.py` to download configurable amount of medium size images
+
+### Edge-smoothed version of cartoon images
+
+To make the GAN better learn to produce clear edges in the cartoon image, the model is trained with an edge-smoothed version on every cartoon image, too. In the paper, the edges are first detected by canny-edge, then the edges are dilated and smoothed with gaussian smoothing. I failed to combine the canny edged version of the image with the original version, so I just gaussian smoothed the whole image. My approach may result in bad output images, but I give it a try.
+
+With the script `cartoon_image_smoothing.py` I create a gaussian smoothed version of every cartoon image.
+
+- use downloaded images from safebooru as described above
+- configure where the cartoon images are stored in `PATH_TO_STORED_CARTOON_IMAGES`
+- configure where to store smoothed images in `PATH_TO_STORE_SMOOTHED_IMAGES`
+- configure where to store images in `PATH_TO_STORE_SMOOTHED_CARTOON_IMAGES`
+- run `cartoon_image_smoothing.py` to create the images
 
 ### Photos
 
@@ -30,7 +41,7 @@ With the script `photo_downloader.py` I get the photo part of the dataset, follo
 - configure where to store resulting .zip-file of images in `PHOTO_ZIPFILE_NAME`
 - run `photo_downloader.py` to download configurable amount of photos of persons
 
-\[1\] https://s3.amazonaws.com/video.udacity-data.com/topher/2018/November/5bea23cd_cartoongan/cartoongan.pdf
+\[1\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 
 \[2\] https://www.kaggle.com/alamson/safebooru
 
