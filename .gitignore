@@ -1,5 +1,7 @@
 all_data.csv
 safebooru/
+safebooru_smoothed/
+safebooru_smoothed.zip
 .idea/
 *.iml
 .DS_STORE

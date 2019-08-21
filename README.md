@@ -13,6 +13,7 @@ Due to copyright reasons I tried to find an alternative dataset, which I have fo
 - download `all_data.csv` from safebooru dataset
 - configure path of this file in `PATH_TO_SAFEBOORU_ALL_DATA_CSV`
 - configure where to store images in `PATH_TO_STORE_DOWNLOADED_CARTOON_IMAGES`
+- configure where to store resulting .zip-file of images in `CARTOON_IMAGES_ZIPFILE_NAME`
 `- run `cartoon_image_downloader.py` to download configurable amount of medium size images
 
 ### Edge-smoothed version of cartoon images
@@ -24,7 +25,8 @@ With the script `cartoon_image_smoothing.py` I create a gaussian smoothed versio
 - use downloaded images from safebooru as described above
 - configure where the cartoon images are stored in `PATH_TO_STORED_CARTOON_IMAGES`
 - configure where to store smoothed images in `PATH_TO_STORE_SMOOTHED_IMAGES`
-- configure where to store images in `PATH_TO_STORE_SMOOTHED_CARTOON_IMAGES`
+- `pip install opencv-python`
+- configure where to store resulting .zip-file of images in `SMOOTHED_IMAGES_ZIPFILE_NAME`
 - run `cartoon_image_smoothing.py` to create the images
 
 ### Photos
