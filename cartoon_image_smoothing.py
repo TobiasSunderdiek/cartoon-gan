@@ -15,12 +15,22 @@ def main():
         os.makedirs(PATH_TO_STORE_SMOOTHED_IMAGES)
 
     for filename in os.listdir(PATH_TO_STORED_CARTOON_IMAGES):
-        origin = cv2.imread(PATH_TO_STORED_CARTOON_IMAGES+filename)
-        edges = createEdgesOverlay(origin)
-        result = overlayEdges(edges, origin)
-        result.save(PATH_TO_STORE_SMOOTHED_IMAGES+filename, "JPEG")
+        cartoon_images_filename = PATH_TO_STORED_CARTOON_IMAGES + filename
+        smoothed_images_filename = PATH_TO_STORE_SMOOTHED_IMAGES + filename
+
+        if not os.path.exists(smoothed_images_filename):
+            edge_smoothing(cartoon_images_filename, smoothed_images_filename)
+        else:
+            print("Skipping file, already exists, ", cartoon_images_filename)
 
     downloader.zip_images(SMOOTHED_IMAGES_ZIPFILE_NAME, PATH_TO_STORE_SMOOTHED_IMAGES)
+
+def edge_smoothing(cartoon_images_filename, smoothed_images_filename):
+    print("Edge-smoothing of ", cartoon_images_filename)
+    origin = cv2.imread(cartoon_images_filename)
+    edges = createEdgesOverlay(origin)
+    result = overlayEdges(edges, origin)
+    result.save(smoothed_images_filename, "JPEG")
 
 def overlayEdges(edges, origin):
     background = transformFromCV2ToPillowImageFormat(origin)
