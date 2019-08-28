@@ -18,9 +18,10 @@ Due to copyright reasons I tried to find an alternative dataset, which I have fo
 
 ### Edge-smoothed version of cartoon images
 
-To make the GAN better learn to produce clear edges in the cartoon image, the model is trained with an edge-smoothed version on every cartoon image, too. In the paper, the edges are first detected by canny-edge, then the edges are dilated and smoothed with gaussian smoothing. I failed to combine the canny edged version of the image with the original version, so I just gaussian smoothed the whole image. My approach may result in bad output images, but I give it a try.
+To make the GAN better learn to produce clear edges in the cartoon image, the model is trained with an edge-smoothed version on every cartoon image, too. In the paper, the edges are first detected by canny-edge, then the edges are dilated and smoothed with gaussian smoothing.
+In my implementation, I do the canny edges, the dilation and the gaussian blur with openCV and I make the white backbground transparent and paste the edges back on the original image with Pillow.
 
-With the script `cartoon_image_smoothing.py` I create a gaussian smoothed version of every cartoon image.
+With the script `cartoon_image_smoothing.py` I create a edge-smoothed version of every cartoon image.
 
 - use downloaded images from safebooru as described above
 - configure where the cartoon images are stored in `PATH_TO_STORED_CARTOON_IMAGES`

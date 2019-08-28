@@ -1,5 +1,6 @@
 import os
 import cv2
+from PIL import Image, ImageFilter
 import downloader
 
 PATH_TO_STORED_CARTOON_IMAGES = './safebooru/'
@@ -14,12 +15,44 @@ def main():
         os.makedirs(PATH_TO_STORE_SMOOTHED_IMAGES)
 
     for filename in os.listdir(PATH_TO_STORED_CARTOON_IMAGES):
-        img = cv2.imread(PATH_TO_STORED_CARTOON_IMAGES+filename)
-        blurred_img = cv2.GaussianBlur(img, (9, 9), 0)
-        cv2.imwrite(PATH_TO_STORE_SMOOTHED_IMAGES+filename, blurred_img)
-        break
+        origin = cv2.imread(PATH_TO_STORED_CARTOON_IMAGES+filename)
+        edges = createEdgesOverlay(origin)
+        result = overlayEdges(edges, origin)
+        result.save(PATH_TO_STORE_SMOOTHED_IMAGES+filename, "JPEG")
 
     downloader.zip_images(SMOOTHED_IMAGES_ZIPFILE_NAME, PATH_TO_STORE_SMOOTHED_IMAGES)
+
+def overlayEdges(edges, origin):
+    background = transformFromCV2ToPillowImageFormat(origin)
+    background.paste(edges, (0, 0), edges)
+    background = background.convert("RGB")
+    return background
+
+def transformFromCV2ToPillowImageFormat(img):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
+    return Image.fromarray(img)
+
+def createEdgesOverlay(origin):
+    edges = cv2.Canny(origin, 30, 300, 3)
+    edges = cv2.dilate(edges, (3, 3))
+    edges = cv2.bitwise_not(edges)
+    edges = transformFromCV2ToPillowImageFormat(edges)
+    makeWhiteBackgroundTransparent(edges)
+    edges = edges.filter(ImageFilter.GaussianBlur) #do blurring here because doing it before making background transparent results in white halo
+
+    return edges
+
+# got this from here:
+# https://stackoverflow.com/questions/765736/using-pil-to-make-all-white-pixels-transparent/4531395
+def makeWhiteBackgroundTransparent(img):
+    datas = img.getdata()
+    newData = []
+    for item in datas:
+        if item[0] == 255 and item[1] == 255 and item[2] == 255:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append(item)
+    img.putdata(newData)
 
 if __name__ == '__main__':
     main()
