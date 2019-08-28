@@ -18,7 +18,7 @@ def main():
         cartoon_images_filename = PATH_TO_STORED_CARTOON_IMAGES + filename
         smoothed_images_filename = PATH_TO_STORE_SMOOTHED_IMAGES + filename
 
-        if not os.path.exists(smoothed_images_filename):
+        if not smoothed_images_filename.startswith('.') and not os.path.exists(smoothed_images_filename):
             edge_smoothing(cartoon_images_filename, smoothed_images_filename)
         else:
             print("Skipping file, already exists, ", cartoon_images_filename)
