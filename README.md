@@ -1,4 +1,4 @@
-# CartoonGAN - my try to implement it
+# CartoonGAN - my attempt to implement it
 
 Within this repo, I try to implement a cartoon GAN \[1\].
 
