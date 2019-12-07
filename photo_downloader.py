@@ -5,7 +5,7 @@ import config
 
 PATH_TO_STORE_DOWNLOADED_PHOTOS = "./photos/"
 PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER = "."
-DATA_TYPE='val2017'
+DATA_TYPE='train2017'
 ANNOTATION_FILE = '{}/annotations/instances_{}.json'.format(PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER, DATA_TYPE)
 PHOTO_ZIPFILE_NAME = './coco'
 
