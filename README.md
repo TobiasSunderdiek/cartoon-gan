@@ -46,6 +46,8 @@ With the script `photo_downloader.py` I get the photo part of the dataset, follo
 
 All the steps are described in a [jupyter notebook, please see here for details](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb).
 
+## References
+
 \[1\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 
 \[2\] https://www.kaggle.com/alamson/safebooru
