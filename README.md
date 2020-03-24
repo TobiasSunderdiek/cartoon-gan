@@ -42,6 +42,10 @@ With the script `photo_downloader.py` I get the photo part of the dataset, follo
 - configure where to store resulting .zip-file of images in `PHOTO_ZIPFILE_NAME`
 - run `photo_downloader.py` to download configurable amount of photos of persons
 
+## Create and train model
+
+All the steps are described in a [jupyter notebook, please see here for details](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb).
+
 \[1\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 
 \[2\] https://www.kaggle.com/alamson/safebooru
