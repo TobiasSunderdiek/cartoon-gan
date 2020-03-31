@@ -12,21 +12,63 @@
   		});
 	</script>
 	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+	<style>
+		.column {
+			float: left;
+		}
+
+		.left {
+			width: 30%;
+			height: 100%;
+			overflow: scroll;
+		}
+
+		.right {
+			width: 70%;
+			height: 100%;
+			overflow: scroll;
+		}
+
+		html, body {
+			color: #24292e!important;
+			font-family: Arial, Helvetica, sans-serif;
+			height: 98%;
+		}
+
+		.row {
+			height: 98%;
+		}
+
+		code { /* style copied from github, text color slightly modified */
+		    padding: .2em .4em;
+			margin: 0;
+			font-size: 85%;
+			background-color: rgba(27,31,35,.05);
+			border-radius: 3px;
+			color: #ba2121;
+		}
+		
+	</style>
 </head>
 <body>
+<div class="row">
+<div class="column left">
+	<h2>Table of contents</h2>
+	<ul>
+	<li><a href="#tc1">Generate dataset</a></li>
+		<ul>
+			<li><a href="#tc1_1">Cartoon images</a></li>
+			<li><a href="#tc1_2">Edge-smoothed version of cartoon images</a></li>
+			<li><a href="#tc1_3">Photos</a></li>
+		</ul>
+	</ul>
+</div>
+
+<div class="column right">
 <h1>CartoonGAN - my attempt to implement it</h1>
 
 Within this repo, I try to implement a cartoon GAN <a href="#ref_1">[1]</a>.
 
-<h2>Table of contents</h2>
-<ul>
-	<li><a href="#tc1">Generate dataset</a></li>
-	<ul>
-		<li><a href="#tc1_1">Cartoon images</a></li>
-		<li><a href="#tc1_2">Edge-smoothed version of cartoon images</a></li>
-		<li><a href="#tc1_3">Photos</a></li>
-	</ul>
-</ul>
 <h2><a name="tc1"/>Generate dataset</h2>
 
 <code>pip install -r requirements.txt</code>
@@ -417,5 +459,8 @@ Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master
 <a name="ref_3">[3] http://cocodataset.org</a><br />
 <a name="ref_4">[4] https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocoDemo.ipynb</a><br />
 <a name="ref_5">[5] http://images.cocodataset.org/annotations/annotations_trainval2017.zip</a><br />
+
+</div>
+</div>
 </body>
 </html>
