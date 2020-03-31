@@ -1,110 +1,109 @@
 <!DOCTYPE html>
 <head>
+	<!-- got this config from here: http://haixing-hu.github.io/programming/2013/09/20/how-to-use-mathjax-in-jekyll-generated-github-pages/ -->
 	<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    TeX: {
-      equationNumbers: {
-        autoNumber: "AMS"
-      }
-    },
-    tex2jax: {
-      inlineMath: [ ['$','$'], ['\(', '\)'] ],
-      displayMath: [ ['$$','$$'] ],
-      processEscapes: true,
-    }
-  });
-</script>
-<script type="text/javascript"
-        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+  		MathJax.Hub.Config({
+    			TeX: {
+      				equationNumbers: {
+        			autoNumber: "AMS"
+     				 }
+    			},
+    			tex2jax: {
+      				inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      				displayMath: [ ['$$','$$'] ],
+      				processEscapes: true,
+   			 }
+  		});
+	</script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
 
-# CartoonGAN - my attempt to implement it
+	<h1>CartoonGAN - my attempt to implement it</h1>
 
 Within this repo, I try to implement a cartoon GAN \[1\].
 
-## Generate dataset
+<h2>Generate dataset</h2>
 
-`pip install -r requirements.txt`
-### Cartoon images
+<code>pip install -r requirements.txt</code>
+<h3>Cartoon images</h3>
 
-With the script `cartoon_image_downloader.py` I get the cartoon part of the dataset for my implementation of the cartoon GAN. In the original paper, the data was produced by extracting images from anime movies, e.g. the movie "Spirited Away"  by Miyazaki Hayao.
+With the script <code>cartoon_image_downloader.py</code> I get the cartoon part of the dataset for my implementation of the cartoon GAN. In the original paper, the data was produced by extracting images from anime movies, e.g. the movie "Spirited Away"  by Miyazaki Hayao.
 
 Due to copyright reasons I tried to find an alternative dataset, which I have found in the safebooru [2] dataset from kaggle. Problem of this procedure are the different creators and their different styles of the images. This will not train the network properly I think, but I give it a try. In the paper, only one style from one artist is used.
 
-- download `all_data.csv` from safebooru dataset [here](https://www.kaggle.com/alamson/safebooru/download)
-- point to `all_data.csv` in `PATH_TO_SAFEBOORU_ALL_DATA_CSV` of `cartoon_image_downloader.py`
-- configure the folder where you want the script to download the images to in `PATH_TO_STORE_DOWNLOADED_CARTOON_IMAGES`
-- the script creates a .zip-file of the downloaded images, configure path where to store resulting .zip-file in `CARTOON_IMAGES_ZIPFILE_NAME`
-- run `cartoon_image_downloader.py` to download configurable amount of medium size images
+- download <code>all_data.csv</code> from safebooru dataset [here](https://www.kaggle.com/alamson/safebooru/download)
+- point to <code>all_data.csv</code> in <code>PATH_TO_SAFEBOORU_ALL_DATA_CSV</code> of <code>cartoon_image_downloader.py</code>
+- configure the folder where you want the script to download the images to in <code>PATH_TO_STORE_DOWNLOADED_CARTOON_IMAGES</code>
+- the script creates a .zip-file of the downloaded images, configure path where to store resulting .zip-file in <code>CARTOON_IMAGES_ZIPFILE_NAME</code>
+- run <code>cartoon_image_downloader.py</code> to download configurable amount of medium size images
 
-### Edge-smoothed version of cartoon images
+<h3>Edge-smoothed version of cartoon images</h3>
 
 To make the GAN better learn to produce clear edges in the cartoon image, the model is trained with an edge-smoothed version on every cartoon image, too. In the paper, the edges are first detected by canny-edge, then the edges are dilated and smoothed with gaussian smoothing.
 In my implementation, I do the canny edges, the dilation and the gaussian blur with openCV and I make the white backbground transparent and paste the edges back on the original image with Pillow.
 
-With the script `cartoon_image_smoothing.py` I create a edge-smoothed version of every cartoon image.
+With the script <code>cartoon_image_smoothing.py</code> I create a edge-smoothed version of every cartoon image.
 
 - use downloaded images from safebooru as described above
-- configure where the cartoon images are stored in `PATH_TO_STORED_CARTOON_IMAGES`
-- configure where to store smoothed images in `PATH_TO_STORE_SMOOTHED_IMAGES`
-- configure where to store resulting .zip-file of images in `SMOOTHED_IMAGES_ZIPFILE_NAME`
-- run `cartoon_image_smoothing.py` to create the images
+- configure where the cartoon images are stored in <code>PATH_TO_STORED_CARTOON_IMAGES</code>
+- configure where to store smoothed images in <code>PATH_TO_STORE_SMOOTHED_IMAGES</code>
+- configure where to store resulting .zip-file of images in <code>SMOOTHED_IMAGES_ZIPFILE_NAME</code>
+- run <code>cartoon_image_smoothing.py</code> to create the images
 
-### Photos
+<h3>Photos</h3>
 
 In the paper, photos are downloaded from flickr. In my implementation I try to use the COCO\[3\] dataset, especially the category *person*.
 
-With the script `photo_downloader.py` I get the photo part of the dataset, following the COCO part as described in \[4\].
+With the script <code>photo_downloader.py</code> I get the photo part of the dataset, following the COCO part as described in \[4\].
 
 - download and unzip coco annotations from \[5\]
-- configure annotations dir location in `PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER`
-- configure where to store photos in `PATH_TO_STORE_DOWNLOADED_PHOTOS`
-- configure where to store resulting .zip-file of images in `PHOTO_ZIPFILE_NAME`
-- run `photo_downloader.py` to download configurable amount of photos of persons
+- configure annotations dir location in <code>PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER</code>
+- configure where to store photos in <code>PATH_TO_STORE_DOWNLOADED_PHOTOS</code>
+- configure where to store resulting .zip-file of images in <code>PHOTO_ZIPFILE_NAME</code>
+- run <code>photo_downloader.py</code> to download configurable amount of photos of persons
 
-## Create and train model
+<h2>Create and train model</h2>
 
 All the steps are described in a [jupyter notebook, please see here for details](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb).
 
-## Generate dataset
+<h2>Generate dataset</h2>
 
-## Transfer data via google drive
+<h2>Transfer data via google drive</h2>
 - all image data in this notebook is expected to be zipped to files on local computer as described in README of this project [here](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/README.md)
-- create folder `cartoonGAN` in `My Drive` in google drive
-- copy .zip-files `coco.zip`, `safebooru.zip` and `safebooru_smoothed.zip` to google drive `My Drive`/`cartoonGAN`
+- create folder <code>cartoonGAN</code> in <code>My Drive</code> in google drive
+- copy .zip-files <code>coco.zip</code>, <code>safebooru.zip</code> and <code>safebooru_smoothed.zip</code> to google drive <code>My Drive</code>/</code>cartoonGAN</code>
 - mount google drive in this notebook by executing cell below
 
-### cartoons images
+<h3>cartoons images</h3>
 
-- cartoon images are located in file `content/data/My Drive/cartoonGAN/safebooru.zip` of this notebook
-- extract images and place in folder `cartoons` by executing cell below
+- cartoon images are located in file <code>content/data/My Drive/cartoonGAN/safebooru.zip</code> of this notebook
+- extract images and place in folder <code>cartoons</code> by executing cell below
 
-##### data-loader
+<h5>data-loader</h5>
 
 As mentioned in the paper, the used image size is 256x256 pixel.
 
 The Generator uses relu as activation function, which generates values in [0.0, 1.0]. As the ToTensor()-method changes the range of the input image from RGB [0, 255] to [0.0, 1.0], we get the same range for all images.
 
-### edge-smoothed cartoons images
+<h3>edge-smoothed cartoons images</h3>
 
-- edge-smoothed cartoon images are located in file `content/data/My Drive/cartoonGAN/safebooru_smoothed.zip` of this notebook
-- extract images and place in folder `cartoons_smoothed` by executing cell below
+- edge-smoothed cartoon images are located in file <code>content/data/My Drive/cartoonGAN/safebooru_smoothed.zip</code> of this notebook
+- extract images and place in folder <code>cartoons_smoothed</code> by executing cell below
 
-##### data-loader
+<h5>data-loader</h5>
 
 same configuration as cartoon data loader above
 
-### photos
+<h3>photos</h3>
 
-- photos are located in file `content/data/My Drive/cartoonGAN/coco.zip` of this notebook
-- extract images and place in folder `photos` by executing cell below
+- photos are located in file <code>content/data/My Drive/cartoonGAN/coco.zip</code> of this notebook
+- extract images and place in folder <code>photos</code> by executing cell below
 
-##### data-loader
+<h5>data-loader</h5>
 same configuration as cartoon data loader above
 
-## Setup tensorboard
+<h2>Setup tensorboard</h2>
 
 Use tensorboard to have an eye on weights and losses.
 
@@ -112,13 +111,13 @@ Use tensorboard to have an eye on weights and losses.
 
 The information about the model structure is given in the paper.
 
-For the `zero padding` of the convolutional layers, I use the following formula:
+For the <code>zero padding</code> of the convolutional layers, I use the following formula:
 
 $$Height x Width_{output} = \frac{HeightxWidth_{input} - kernel size + 2 padding}{stride} + 1$$
 
 e.g:
 
-- `conv_1` layer of generator: $HxW$ should stay the same as input size, which is 256x256 and `stride = 1`
+- <code>conv_1</code> layer of generator: $HxW$ should stay the same as input size, which is 256x256 and <code>stride = 1</code>
 
 $$256 = \frac{256-7+2padding}{1}+1$$
 
@@ -126,7 +125,7 @@ $$padding = 3$$
 
 In case of a fraction as a result, I choose to ceil:
 
-- `conv_2` layer of generator: $\frac{H}{2} x \frac{W}{2}$ is output with `stride=2`
+- <code>conv_2</code> layer of generator: $\frac{H}{2} x \frac{W}{2}$ is output with <code>stride=2</code>
 
 $$128 = \frac{256-3+2padding}{2}+1$$
 
@@ -134,9 +133,9 @@ $$padding= \frac{1}{2} \Rightarrow padding=1$$
 
 ###Generator
 
-In the up-convolutional part of the paper, two layers (conv_6 and conv_8 in my implementation) have a stride of 0.5. As pytorchs `conv2D()` does not allow floating point stride, I use a stride of 1 in both cases. Therefore even for the padding calculation I go with a stride of 1.
+In the up-convolutional part of the paper, two layers (conv_6 and conv_8 in my implementation) have a stride of 0.5. As pytorchs <code>conv2D()</code> does not allow floating point stride, I use a stride of 1 in both cases. Therefore even for the padding calculation I go with a stride of 1.
 
-##### Learnings
+<h5>Learnings</h5>
 
 After implementing the generator and getting some results out of the training, the generated images have a wide grey margin, like in this example image:
 
@@ -171,7 +170,7 @@ My implementation differs from the paper in the mentioned layers.
 
 [2] https://towardsdatascience.com/is-the-transposed-convolution-layer-and-convolution-layer-the-same-thing-8655b751c3a1
 
-## Loss function
+<h2>Loss function</h2>
 $\mathcal{L}(G, D) = \mathcal{L}_{adv}(G, D) + ω\mathcal{L}_{con}(G, D)$ with ω = 10
 
 This loss is used to train the discriminator and the generator. In the adversarial part, the discriminator tries to classify the generated images as fakes.
@@ -182,7 +181,7 @@ During the generator training, the generator tries to minimize the classificatio
 
 [2] https://towardsdatascience.com/only-numpy-implementing-gan-general-adversarial-networks-and-adam-optimizer-using-numpy-with-2a7e4e032021
 
-### Adversarial loss
+<h3>Adversarial loss</h3>
 
 The adversarial loss  $\mathcal{L}_{adv}(G, D)$ which drives the generator to transform photo to comic style of the image. Its value indicates if the output looks like a cartoon image or not. The paper highlights, that a characteristic part of cartoons images are the clear edges, which are a small detail of the image, must be preserved to generate clear edges in the result. In the paper, this is solved by training not only with cartoon images but additionaly by training with the same cartoon images with smoothed edges so that the discriminator can distinguish between clear and smooth edges. For achieving this the authors define the edge-promoting adversarial loss function:
 
@@ -196,8 +195,8 @@ $\mathcal{L}_{adv}(G, D) = \mathbb{E}_{ci∼S_{data}(c)}[log D(c_i)]
 
 - for the training phase of the generator, only the part of the formula is used within the generator loss function, which the generator can affect: $\mathbb{E}_{pk∼S_{data}(p)}[log(1 − D(G(p_k)))]$
 
-### Content loss
-The content loss $ω\mathcal{L}_{con}(G, D)$ which preserves the semantic content during transformation. To calculate this, in the paper the high-level feature maps of the VGG network is used, in particular the layer ($l$) `conv4_4`. The output of the layer $l$ for the original photo is subtracted from the output of the layer $l$ of the generated image. The result is regularized using the $\mathcal{L_1}$ spare regularization ($||...||_1$):
+<h3>Content loss</h3>
+The content loss $ω\mathcal{L}_{con}(G, D)$ which preserves the semantic content during transformation. To calculate this, in the paper the high-level feature maps of the VGG network is used, in particular the layer ($l$) <code>conv4_4</code>. The output of the layer $l$ for the original photo is subtracted from the output of the layer $l$ of the generated image. The result is regularized using the $\mathcal{L_1}$ spare regularization ($||...||_1$):
 
 $\mathcal{L}_{con}(G, D)= \mathbb{E}_{pi~S_{data}(p)}[||VGG_l(G(p_i))-VGG_l(p_i)||_1]$
 
@@ -209,15 +208,15 @@ https://medium.com/mlreview/l1-norm-regularization-and-sparsity-explained-for-du
 
 https://medium.com/@montjoile/l0-norm-l1-norm-l2-norm-l-infinity-norm-7a7d18a4f40c
 
-### VGG-16
+<h3>VGG-16</h3>
 Load already downloaded vgg-16 weights from drive, or download and save to drive.
 
-### Two loss functions
+<h3>Two loss functions</h3>
 
 - discriminator loss
 - generator initialization phase loss and generator loss
 
-##### Learnings
+<h5>Learnings</h5>
 
 At this section I will describe my learnings during implementing/testing the loss functions.
 
@@ -262,9 +261,9 @@ But, after trying to go with this solution, the generator produces values lower 
 
 [1] https://machinelearningmastery.com/generative-adversarial-network-loss-functions/
 
-#### Hyperparameter omega ($\omega$)
+<h4>Hyperparameter omega ($\omega$)</h4>
 
-#### Training round 1
+<h4>Training round 1</h4>
 Initially, I set $\omega$, which is a weight to balance the style and the content preservation, to the value given in the paper, which is 10. After running 210 epochs, the content preservation was very good, but the generated images do not have cartoon styles. Maybe this is a problem with my input data, where I use different cartoon styles from different artists instead from one single artist, as used in the paper.
 
 Examine the parts of the generator loss over time, the following values are observable:
@@ -284,7 +283,7 @@ Maybe my calculation of the content loss is wrong? Should it be much lower? As t
 
 As the adversarial loss is responsible for the comic-effect, I try a much lower $\omega$, to balance the values of g_content_loss and g_adversarial_loss on an equal level for the next training round.
 
-#### Training round 2
+<h4>Training round 2</h4>
 As g_content_loss has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:
 
 <table>
@@ -319,7 +318,7 @@ As seen in the example images, the comic effect starts to kick in and the conten
 
 As a next trial, I set $\omega=0$, to have the optimization effect on the adversarial loss only.
 
-#### Training round 3
+<h4>Training round 3</h4>
 With $\omega=0$, the trained model looses the content information but the comic-style hits through:
 
 <table>
@@ -348,50 +347,50 @@ With $\omega=0$, the trained model looses the content information but the comic-
 
 As comic-style starts to hit through around $\omega=0.00001$ and has full dominance at $\omega=0$, I try some $\omega$ between these values for the next round.
 
-#### Training round 4
+<h4>Training round 4</h4>
 set $\omega = 0.00001 / 2 = 0.000005$
 
-## Optimizer
+<h2>Optimizer</h2>
 In the paper, the used optimizer is not mentioned, I decide to choose adam.
 
 For hyperparameter-tuning, I decided to go with the same parameters mentioned in the DCGAN-paper[1].
 
 [1] https://arxiv.org/pdf/1511.06434.pdf
 
-## Saving
+<h2>Saving</h2>
 To make training resumeable, I save some checkpoints to google drive and load them, if existing, before run the training.
 
 I also save weights and bias from generator and discriminator to tensorboard.
 
 For checking some intermediate images of the generator, I save them to google drive.
 
-### some generated results
+<h3>some generated results</h3>
 
-#### direct after start, one of the first epochs
+<h4>direct after start, one of the first epochs</h4>
 
 ![some of the first epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/no_margin.jpg)
 
-#### direct after init-phase is completed
+<h4>direct after init-phase is completed</h4>
 **Epoch 10/210 | d_loss 0.0124 | g_loss 226864.062**
 
 **Epoch 10/210 | validation loss 182869.5312**
 
 Photo input ![epoch_10_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_photo_input.jpg) Generated image ![epoch_10_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_generated_image.jpg)
 
-#### direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs
+<h4>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</h4>
 
 Photo input ![epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image.jpg)
 
 Photo input ![epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image_2.jpg)
 
-#### Epoch 210
+<h4>Epoch 210</h4>
 
 After training has finished 210 epochs, the output looks like this:
 
 
 Photo input ![input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/generated_after_210_epochs.jpg)
 
-## Notes/next steps
+<h2>Notes/next steps</h2>
 - alternative lib for image processing: https://github.com/albu/albumentations
 - figure out which variant of VGG to use (VGG-16?), and if the pre-training in the referenced paper is the same as the pre-trained pytorch version
 - do I use correct normalization-method in content loss
@@ -404,7 +403,7 @@ Photo input ![input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/
 - for image downloader: catch exception if image is truncated/check if zipping adds additional folder within .zip in create_smoothed_images.py
 - upgrade to tensorboard 2
 
-## References
+<h2>References</h2>
 
 \[1\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 
