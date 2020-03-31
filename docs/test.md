@@ -11,3 +11,5 @@ $\mathcal{L}_{adv}(G, D) = \mathbb{E}_{ci∼S_{data}(c)}[log D(c_i)]
 - for the initialization phase of the generator, this part of the formula is not used as described in the paper.
 
 - for the training phase of the generator, only the part of the formula is used within the generator loss function, which the generator can affect: $\mathbb{E}_{pk∼S_{data}(p)}[log(1 − D(G(p_k)))]
+
+test
