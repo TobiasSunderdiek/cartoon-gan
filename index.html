@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <head>
 	<!-- got this config from here: http://haixing-hu.github.io/programming/2013/09/20/how-to-use-mathjax-in-jekyll-generated-github-pages/ -->
+	<!-- some changes due to different mathjax version -->
 	<script type="text/x-mathjax-config">
   		MathJax.Hub.Config({
-    			TeX: {
-      				equationNumbers: {
-        			autoNumber: "AMS"
-     				 }
-    			},
     			tex2jax: {
-      				inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      				inlineMath: [ ['$','$'], ['\(', '\)'], ['($', '$)' ]],
       				displayMath: [ ['$$','$$'] ],
       				processEscapes: true,
    			 }
   		});
 	</script>
-	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 
@@ -32,7 +28,7 @@ With the script <code>cartoon_image_downloader.py</code> I get the cartoon part 
 
 Due to copyright reasons I tried to find an alternative dataset, which I have found in the safebooru [2] dataset from kaggle. Problem of this procedure are the different creators and their different styles of the images. This will not train the network properly I think, but I give it a try. In the paper, only one style from one artist is used.
 
-- download <code>all_data.csv</code> from safebooru dataset [here](https://www.kaggle.com/alamson/safebooru/download)
+- download <code>all_data.csv</code> from safebooru dataset <a href="https://www.kaggle.com/alamson/safebooru/download">here</a>
 - point to <code>all_data.csv</code> in <code>PATH_TO_SAFEBOORU_ALL_DATA_CSV</code> of <code>cartoon_image_downloader.py</code>
 - configure the folder where you want the script to download the images to in <code>PATH_TO_STORE_DOWNLOADED_CARTOON_IMAGES</code>
 - the script creates a .zip-file of the downloaded images, configure path where to store resulting .zip-file in <code>CARTOON_IMAGES_ZIPFILE_NAME</code>
@@ -65,12 +61,12 @@ With the script <code>photo_downloader.py</code> I get the photo part of the dat
 
 <h2>Create and train model</h2>
 
-All the steps are described in a [jupyter notebook, please see here for details](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb).
+All the steps are described in a <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb">jupyter notebook, please see here for details</a>.
 
 <h2>Generate dataset</h2>
 
 <h2>Transfer data via google drive</h2>
-- all image data in this notebook is expected to be zipped to files on local computer as described in README of this project [here](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/README.md)
+- all image data in this notebook is expected to be zipped to files on local computer as described in README of this project <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/README.md">here</a>
 - create folder <code>cartoonGAN</code> in <code>My Drive</code> in google drive
 - copy .zip-files <code>coco.zip</code>, <code>safebooru.zip</code> and <code>safebooru_smoothed.zip</code> to google drive <code>My Drive</code>/</code>cartoonGAN</code>
 - mount google drive in this notebook by executing cell below
@@ -139,7 +135,7 @@ In the up-convolutional part of the paper, two layers (conv_6 and conv_8 in my i
 
 After implementing the generator and getting some results out of the training, the generated images have a wide grey margin, like in this example image:
 
-![failure image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/grey_margin.jpg)
+!<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/grey_margin.jpg">failure image</a>
 
 I re-checked my implementation of the generator and stumbled across my interpretation of the stride for _conv_6_ and _conv_8_, which is _1/2_ in the paper.
 Maybe I got the part of the stride wrong, and this is not _0.5_, but a tuple of (1,2)?
@@ -261,7 +257,7 @@ But, after trying to go with this solution, the generator produces values lower 
 
 [1] https://machinelearningmastery.com/generative-adversarial-network-loss-functions/
 
-<h4>Hyperparameter omega ($\omega$)</h4>
+<h4>Hyperparameter omega $\omega$</h4>
 
 <h4>Training round 1</h4>
 Initially, I set $\omega$, which is a weight to balance the style and the content preservation, to the value given in the paper, which is 10. After running 210 epochs, the content preservation was very good, but the generated images do not have cartoon styles. Maybe this is a problem with my input data, where I use different cartoon styles from different artists instead from one single artist, as used in the paper.
@@ -368,27 +364,27 @@ For checking some intermediate images of the generator, I save them to google dr
 
 <h4>direct after start, one of the first epochs</h4>
 
-![some of the first epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/no_margin.jpg)
+!<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/no_margin.jpg">some of the first epochs</a>
 
 <h4>direct after init-phase is completed</h4>
 **Epoch 10/210 | d_loss 0.0124 | g_loss 226864.062**
 
 **Epoch 10/210 | validation loss 182869.5312**
 
-Photo input ![epoch_10_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_photo_input.jpg) Generated image ![epoch_10_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_generated_image.jpg)
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_generated_image.jpg">epoch_10_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_10_photo_input.jpg) Generated image ![epoch_10_generated_image</a>
 
 <h4>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</h4>
 
-Photo input ![epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image.jpg)
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image</a>
 
-Photo input ![epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image_2.jpg)
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_generated_image_2.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image</a>
 
 <h4>Epoch 210</h4>
 
 After training has finished 210 epochs, the output looks like this:
 
 
-Photo input ![input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/generated_after_210_epochs.jpg)
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/generated_after_210_epochs.jpg">input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg</a>
 
 <h2>Notes/next steps</h2>
 - alternative lib for image processing: https://github.com/albu/albumentations
