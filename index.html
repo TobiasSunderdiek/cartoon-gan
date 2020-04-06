@@ -310,9 +310,9 @@ But, after trying to go with this solution, the generator produces values lower 
 
 [1] https://machinelearningmastery.com/generative-adversarial-network-loss-functions/
 
-<h4>Hyperparameter omega $\omega$</h4>
+#### Hyperparameter omega ($\omega$)
 
-<h4>Training round 1</h4>
+#### Training round 1
 Initially, I set $\omega$, which is a weight to balance the style and the content preservation, to the value given in the paper, which is 10. After running 210 epochs, the content preservation was very good, but the generated images do not have cartoon styles. Maybe this is a problem with my input data, where I use different cartoon styles from different artists instead from one single artist, as used in the paper.
 
 Examine the parts of the generator loss over time, the following values are observable:
@@ -322,7 +322,7 @@ Examine the parts of the generator loss over time, the following values are obse
 <td>
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/g_content_loss.png" alt="g_content_loss" width="400">
 </td><td>
-<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/g_adversarial_loss.png" alt="g_content_loss" width="400">
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
 </td>
 </tr>
 </table>
@@ -332,7 +332,7 @@ Maybe my calculation of the content loss is wrong? Should it be much lower? As t
 
 As the adversarial loss is responsible for the comic-effect, I try a much lower $\omega$, to balance the values of g_content_loss and g_adversarial_loss on an equal level for the next training round.
 
-<h4>Training round 2</h4>
+#### Training round 2
 As g_content_loss has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:
 
 <table>
@@ -340,7 +340,7 @@ As g_content_loss has values of $4e+5$, I choose $\omega=0.00001$. After 210 epo
 <td>
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_2/g_content_loss.png" alt="g_content_loss" width="400">
 </td><td>
-<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_2/g_adversarial_loss.png" alt="g_content_loss" width="400">
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_2/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
 </td>
 </tr>
 <tr>
@@ -367,7 +367,7 @@ As seen in the example images, the comic effect starts to kick in and the conten
 
 As a next trial, I set $\omega=0$, to have the optimization effect on the adversarial loss only.
 
-<h4>Training round 3</h4>
+#### Training round 3
 With $\omega=0$, the trained model looses the content information but the comic-style hits through:
 
 <table>
@@ -396,8 +396,54 @@ With $\omega=0$, the trained model looses the content information but the comic-
 
 As comic-style starts to hit through around $\omega=0.00001$ and has full dominance at $\omega=0$, I try some $\omega$ between these values for the next round.
 
-<h4>Training round 4</h4>
+#### Training round 4
 set $\omega = 0.00001 / 2 = 0.000005$
+Unfortunately, I did not clean up my tensorboard results folder before re-training, so the results are plotted to the existing ones from round 3.
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_4/g_content_loss.png" alt="g_content_loss" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_4/g_adversarial_loss.png" alt="g_content_loss" width="400">
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_input_round_4_1.jpg" alt="example_input_round_4_1" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_result_round_4_1.jpg" alt="example_result_round_4_1" width="400">
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_input_round_4_2.jpg" alt="example_input_round_4_2" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_result_round_4_2.jpg" alt="example_result_round_4_2" width="400">
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_input_round_4_3.jpg" alt="example_input_round_4_3" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_result_round_4_3.jpg" alt="example_result_round_4_3" width="400">
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_input_round_4_4.jpg" alt="example_input_round_4_4" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_result_round_4_4.jpg" alt="example_result_round_4_4" width="400">
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_input_round_4_5.jpg" alt="example_input_round_4_5" width="400">
+</td><td>
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/master/assets/round_3/example_result_round_4_5.jpg" alt="example_result_round_4_5" width="400">
+</td>
+</tr>
+</table>
 
 <h2>Optimizer</h2>
 In the paper, the used optimizer is not mentioned, I decide to choose adam.
