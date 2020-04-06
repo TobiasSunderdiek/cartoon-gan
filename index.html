@@ -61,6 +61,9 @@
 			<li><a href="#tc1_2">Edge-smoothed version of cartoon images</a></li>
 			<li><a href="#tc1_3">Photos</a></li>
 		</ul>
+	<li><a href="#tc2">Create and train model within Google Colab</a></li>
+		<ul>
+			<li><a href="#tc2_1">Transfer data via Google Drive</a></li>
 	</ul>
 </div>
 
@@ -112,13 +115,12 @@ With the script <code>photo_downloader.py</code> I get the photo part of the dat
 	<li>configure where to store resulting .zip-file of images in <code>PHOTO_ZIPFILE_NAME</code></li>
 	<li>run <code>photo_downloader.py</code> to download configurable amount of photos of persons</li>
 </ul>
-<h2>Create and train model</h2>
+<h2><a name="tc2"/>Create and train model within Google Colab</h2>
 
-All the steps are described in a <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb">jupyter notebook, please see here for details</a>.
+Creating and training model is done on this <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb">jupyter notebook, please see here for details</a>.
 
-<h2>Generate dataset</h2>
+<h2><a name="tc2_1"/>Transfer data via google drive</h2>
 
-<h2>Transfer data via google drive</h2>
 - all image data in this notebook is expected to be zipped to files on local computer as described in README of this project <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/README.md">here</a>
 - create folder <code>cartoonGAN</code> in <code>My Drive</code> in google drive
 - copy .zip-files <code>coco.zip</code>, <code>safebooru.zip</code> and <code>safebooru_smoothed.zip</code> to google drive <code>My Drive</code>/</code>cartoonGAN</code>
