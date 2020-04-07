@@ -89,6 +89,8 @@
 			</ul>
 		</ul>
 	<li><a href="#tc6">Optimizer</a></li>
+	<li><a href="#notes">Notes/next steps</a></li>
+	<li><a href="#refs">References</a></li>
 	<p>
 		<a href="https://github.com/TobiasSunderdiek/cartoon-gan">View project on GitHub</a>
 	</p>
@@ -293,37 +295,66 @@ So to get a probability out of this tensor, either an activation function is nee
 <h2><a name="tc5_6">Training round 1</a></h2>
 <p>Initially, I set $\omega$, which is a weight to balance the style and the content preservation, to the value given in the paper, which is 10. After running 210 epochs, the content preservation was very good, but the generated images do not have cartoon styles. Maybe this is a problem with my input data, where I use different cartoon styles from different artists instead from one single artist, as used in the paper.</p>
 
+<table>
+	<tr>
+		<td>direct after start, one of the first epochs</td><td></td>
+	</tr>
+	<tr>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/no_margin.jpg" alt="no_margin.jpg" width="200"/></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>direct after init-phase is completed</td><td></td>
+	</tr>
+	<tr>
+		<td>Photo input</td><td>Generated image</td>
+	</tr>
+	<tr>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_photo_input.jpg" alt="epoch_10_photo_input" width="200" /></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_generated_image.jpg" alt="epoch_10_generated_image" width="200"/></td>
+	</tr>
+	<tr>
+		<td>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</td><td></td>
+	</tr>
+	<tr>
+		<td>Photo input</td><td>Generated image</td>
+	</tr>
+	<tr>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input.jpg" alt="epoch_11_photo_input_example_1" width="200"/></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image.jpg" alt="epoch_11_generated_image_example_1" width="200"/></td>
+	</tr>
+	<tr>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input_2.jpg" alt="epoch_11_photo_input_example_2"/></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image_2.jpg" alt="epoch_11_generated_image_example_2" width="200"/></td>
+	</tr>
+	<tr>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/input_210_epochs.jpg" alt="input_210_epochs" width="200"/></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/generated_after_210_epochs.jpg" alt="generated_after_210_epochs" width="200"/></td> 
+	</tr>
+</table>
+
 Examine the parts of the generator loss over time, the following values are observable:<br />
 
 <table>
 	<tr>
-		<td>direct after start, one of the first epochs</td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/no_margin.jpg" alt="no_margin.jpg" width="400"/></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_content_loss.png" alt="g_content_loss" width="400"></td>
+		<td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
 	</tr>
 	<tr>
-		<td>direct after init-phase is completed</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_content_loss.png" alt="g_content_loss" width="400"></td>
-	</tr>
-	<tr>
-		<td>loss</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
-	</tr>
-	<tr>
-		<td>Photo input</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_generated_image.jpg" alt="epoch_10_photo_input" width="400"/></td>
-	</tr>
-	<tr>
-		<td>Generated image</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_photo_input.jpg" alt="epoch_10_generated_image"/></td>
 	</tr>
 </table>
 
-<h4>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</h4>                                                                      <p>So the content loss is magnitudes higher than the adversarial loss.<br />
+<p>So the content loss is magnitudes higher than the adversarial loss.<br />
 Maybe my calculation of the content loss is wrong? Should it be much lower? As the generated images preserve the content very good, I concentrate on the adversarial loss.<br />
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image</a>    Maybe I use the wrong VGG-Model? Image preservation is not the problem, therefore I concentrate on comic style.<br />
+Maybe I use the wrong VGG-Model? Image preservation is not the problem, therefore I concentrate on comic style.<br />
 As the adversarial loss is responsible for the comic-effect, I try a much lower $\omega$, to balance the values of <code>g_content_loss</code> and <code>g_adversarial_loss</code> on an equal level for the next training round.</p>
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image_2.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image</a>
+
 <h2><a name="tc5_7">Training round 2</a></h2>
-<h4>Epoch 210</h4><p>As <code>g_content_loss</code> has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:</p>
-After training has finished 210 epochs, the output looks like this:                                                                                                                                                                                                                           <table>
+<p>As <code>g_content_loss</code> has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:</p>
+<table>
 <tr>
 <td>
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/generated_after_210_epochs.jpg">input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg</a>    <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_content_loss.png" alt="g_content_loss" width="400">
+<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_content_loss.png" alt="g_content_loss" width="400">
 </td><td>
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
 </td>
@@ -355,7 +386,7 @@ As seen in the example images, the comic effect starts to kick in and the conten
 
 <table>
 <tr>
-<td>not part of the loss result, but plotted here to visualize!
+<td>not part of the loss result due to set to zero, but plotted here to visualize!
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_3/g_adversarial_loss.png" alt="g_content_loss" width="400">
 </td><td>
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_3/g_content_loss.png" alt="g_content_loss" width="400">
@@ -420,56 +451,33 @@ As seen in the example images, the comic effect starts to kick in and the conten
 </td>
 </tr>
 </table>
+<p>Not every image is transformed as desired, but the results are there :-)</p>
 
 <h2><a name="tc6">Optimizer</a></h2>
 <p>In the paper, the used optimizer is not mentioned, I decide to choose adam.</p>
 
 <p>For hyperparameter-tuning, I decided to go with the same parameters mentioned in the DCGAN-paper <a href="#ref_13">[13]</a>.</p>
 
+<h2><a name="notes">Notes/next steps</a></h2>
+	<ul>
+		<li>alternative lib for image processing: https://github.com/albu/albumentations</li>
+		<li>figure out which variant of VGG to use (VGG-16?), and if the pre-training in the referenced paper is the same as the pre-trained pytorch version</li>
+		<li>do I use correct normalization-method in content loss</li>
+		<li>in which order is the discriminator trained regarding photos, cartoons with smoothed edges and then genereated images?</li>
+		<li>evaluate result with existing model http://cg.cs.tsinghua.edu.cn/people/~Yongjin/CartoonGAN-Models.rar?</li>
+		<li>did I split the loss function correctly for the D and G model, and content loss only for G?</li>
+		<li>plot results directly from vars via method</li>
+		<li>in the paper 6.000 photo images and 2.000 - 4.000 cartoon images are used for training, how is this done with unbalanced datasets?</li>
+		<li>is batch_size of 16 correct? Tried 32 before, but got CUDA OOM</li>
+		<li>for image downloader: catch exception if image is truncated/check if zipping adds additional folder within .zip in create_smoothed_images.py</li>
+	</ul>
+<h2><a name="refs">References</a></h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2>Notes/next steps</h2>
-- alternative lib for image processing: https://github.com/albu/albumentations
-- figure out which variant of VGG to use (VGG-16?), and if the pre-training in the referenced paper is the same as the pre-trained pytorch version
-- do I use correct normalization-method in content loss
-- in which order is the discriminator trained regarding photos, cartoons with smoothed edges and then genereated images?
-- evaluate result with existing model http://cg.cs.tsinghua.edu.cn/people/~Yongjin/CartoonGAN-Models.rar ?
-- did I split the loss function correctly for the D and G model, and content loss only for G?
-- plot results directly from vars via method
-- in the paper 6.000 photo images and 2.000 - 4.000 cartoon images are used for training, how is this done with unbalanced datasets?
-- is batch_size of 16 correct? Tried 32 before, but got CUDA OOM
-- for image downloader: catch exception if image is truncated/check if zipping adds additional folder within .zip in create_smoothed_images.py
-- upgrade to tensorboard 2
-
-<h2>References</h2>
-
-<a name="ref_1">[1]  </a>http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf<br />
-<a name="ref_2">[2] https://www.kaggle.com/alamson/safebooru</a><br />
-<a name="ref_3">[3] http://cocodataset.org</a><br />
-<a name="ref_4">[4] https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocoDemo.ipynb</a><br />
-<a name="ref_5">[5] http://images.cocodataset.org/annotations/annotations_trainval2017.zip</a><br />
+<a name="ref_1">[1]</a> http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf<br />
+<a name="ref_2">[2]</a> https://www.kaggle.com/alamson/safebooru<br />
+<a name="ref_3">[3]</a> http://cocodataset.org<br />
+<a name="ref_4">[4]</a> https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocoDemo.ipynb<br />
+<a name="ref_5">[5]</a> http://images.cocodataset.org/annotations/annotations_trainval2017.zip<br />
 <a name="ref_6">[6]</a> https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0<br />
 <a name="ref_7">[7]</a> https://towardsdatascience.com/is-the-transposed-convolution-layer-and-convolution-layer-the-same-thing-8655b751c3a1<br />
 <a name="ref_8">[8]</a> https://developers.google.com/machine-learning/gan/generator<br />
@@ -478,6 +486,7 @@ As seen in the example images, the comic effect starts to kick in and the conten
 <a name="ref_11">[11]</a>  https://medium.com/@montjoile/l0-norm-l1-norm-l2-norm-l-infinity-norm-7a7d18a4f40c<br />
 <a name="ref_12">[12]</a> https://machinelearningmastery.com/generative-adversarial-network-loss-functions/<br />
 <a name="ref_13">[13]</a> https://arxiv.org/pdf/1511.06434.pdf<br />
-</div>                                                                                                                                                        </div>
+</div>
+</div>
 </body>
 </html>
