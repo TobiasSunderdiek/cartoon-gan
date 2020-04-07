@@ -88,6 +88,7 @@
 				</ul>
 			</ul>
 		</ul>
+	<li><a href="#tc6">Optimizer</a></li>
 	<p>
 		<a href="https://github.com/TobiasSunderdiek/cartoon-gan">View project on GitHub</a>
 	</p>
@@ -295,27 +296,34 @@ So to get a probability out of this tensor, either an activation function is nee
 Examine the parts of the generator loss over time, the following values are observable:<br />
 
 <table>
-<tr>
-<td>
-<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_content_loss.png" alt="g_content_loss" width="400">
-</td><td>
-<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
-</td>
-</tr>
+	<tr>
+		<td>direct after start, one of the first epochs</td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/no_margin.jpg" alt="no_margin.jpg" width="400"/></td>
+	</tr>
+	<tr>
+		<td>direct after init-phase is completed</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_content_loss.png" alt="g_content_loss" width="400"></td>
+	</tr>
+	<tr>
+		<td>loss</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
+	</tr>
+	<tr>
+		<td>Photo input</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_generated_image.jpg" alt="epoch_10_photo_input" width="400"/></td>
+	</tr>
+	<tr>
+		<td>Generated image</td><td><img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_photo_input.jpg" alt="epoch_10_generated_image"/></td>
+	</tr>
 </table>
 
-<p>So the content loss is magnitudes higher than the adversarial loss.<br />
+<h4>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</h4>                                                                      <p>So the content loss is magnitudes higher than the adversarial loss.<br />
 Maybe my calculation of the content loss is wrong? Should it be much lower? As the generated images preserve the content very good, I concentrate on the adversarial loss.<br />
-Maybe I use the wrong VGG-Model? Image preservation is not the problem, therefore I concentrate on comic style.<br />
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image</a>    Maybe I use the wrong VGG-Model? Image preservation is not the problem, therefore I concentrate on comic style.<br />
 As the adversarial loss is responsible for the comic-effect, I try a much lower $\omega$, to balance the values of <code>g_content_loss</code> and <code>g_adversarial_loss</code> on an equal level for the next training round.</p>
-
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image_2.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image</a>
 <h2><a name="tc5_7">Training round 2</a></h2>
-<p>As <code>g_content_loss</code> has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:</p>
-
-<table>
+<h4>Epoch 210</h4><p>As <code>g_content_loss</code> has values of $4e+5$, I choose $\omega=0.00001$. After 210 epochs, the result is the following:</p>
+After training has finished 210 epochs, the output looks like this:                                                                                                                                                                                                                           <table>
 <tr>
 <td>
-<img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_content_loss.png" alt="g_content_loss" width="400">
+Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/generated_after_210_epochs.jpg">input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg</a>    <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_content_loss.png" alt="g_content_loss" width="400">
 </td><td>
 <img src="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/round_2/g_adversarial_loss.png" alt="g_adversarial_loss" width="400">
 </td>
@@ -413,45 +421,34 @@ As seen in the example images, the comic effect starts to kick in and the conten
 </tr>
 </table>
 
-<h2>Optimizer</h2>
-In the paper, the used optimizer is not mentioned, I decide to choose adam.
+<h2><a name="tc6">Optimizer</a></h2>
+<p>In the paper, the used optimizer is not mentioned, I decide to choose adam.</p>
 
-For hyperparameter-tuning, I decided to go with the same parameters mentioned in the DCGAN-paper[1].
-
-[1] https://arxiv.org/pdf/1511.06434.pdf
-
-<h2>Saving</h2>
-To make training resumeable, I save some checkpoints to google drive and load them, if existing, before run the training.
-
-I also save weights and bias from generator and discriminator to tensorboard.
-
-For checking some intermediate images of the generator, I save them to google drive.
-
-<h3>some generated results</h3>
-
-<h4>direct after start, one of the first epochs</h4>
-
-!<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/no_margin.jpg">some of the first epochs</a>
-
-<h4>direct after init-phase is completed</h4>
-**Epoch 10/210 | d_loss 0.0124 | g_loss 226864.062**
-
-**Epoch 10/210 | validation loss 182869.5312**
-
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_generated_image.jpg">epoch_10_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_10_photo_input.jpg) Generated image ![epoch_10_generated_image</a>
-
-<h4>direct at the beginning of epoch 11 with use of full generator loss instead of init loss. These results seem to be outliers at this stage of training due to the next outputs look more similar like the inputs</h4>
-
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input.jpg) Generated image ![epoch_11_generated_image</a>
-
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_generated_image_2.jpg">epoch_11_photo_input](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/epoch_11_photo_input_2.jpg) Generated image ![epoch_11_generated_image</a>
-
-<h4>Epoch 210</h4>
-
-After training has finished 210 epochs, the output looks like this:
+<p>For hyperparameter-tuning, I decided to go with the same parameters mentioned in the DCGAN-paper <a href="#ref_13">[13]</a>.</p>
 
 
-Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/generated_after_210_epochs.jpg">input_210_epochs](https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pages/assets/input_210_epochs.jpg) Generated image ![generated_after_210_epochs.jpg</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h2>Notes/next steps</h2>
 - alternative lib for image processing: https://github.com/albu/albumentations
@@ -480,6 +477,7 @@ Photo input !<a href="https://github.com/TobiasSunderdiek/cartoon-gan/raw/gh-pag
 <a name="ref_10">[10]</a> https://medium.com/mlreview/l1-norm-regularization-and-sparsity-explained-for-dummies-5b0e4be3938a<br />
 <a name="ref_11">[11]</a>  https://medium.com/@montjoile/l0-norm-l1-norm-l2-norm-l-infinity-norm-7a7d18a4f40c<br />
 <a name="ref_12">[12]</a> https://machinelearningmastery.com/generative-adversarial-network-loss-functions/<br />
+<a name="ref_13">[13]</a> https://arxiv.org/pdf/1511.06434.pdf<br />
 </div>                                                                                                                                                        </div>
 </body>
 </html>
