@@ -1,6 +1,6 @@
 # CartoonGAN - my attempt to implement it
 
-Within this repo, I try to implement a cartoon GAN \[1\].
+Within this repo, I try to implement a cartoon GAN \[Chen et al., CVPR18\].
 
 I created a github page for detailed documentation, please see https://tobiassunderdiek.github.io/cartoon-gan/ for details.
 
@@ -35,7 +35,7 @@ All the steps are described in a [jupyter notebook, please see here for details]
 
 ## References
 
-\[1\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
+\[Chen et al., CVPR18\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 
 \[2\] https://www.kaggle.com/alamson/safebooru/download
 
