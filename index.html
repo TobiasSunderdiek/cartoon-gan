@@ -206,7 +206,7 @@ After implementing the generator and getting some results out of the training, t
 
 <p>I re-checked my implementation of the generator and stumbled across my interpretation of the stride for <code<conv_6</code> and <code>conv_8</code>, which is $\frac{1}{2}$ in the paper. Maybe I got the part of the stride wrong, and this is not $\frac{1}{2}$, but a tuple of $(1,2)$? If so, I did a wrong padding calculation. This are the only layers where I calculated a very large padding of 33 and 65, which looks suspicious now.
 Testing a tuple of $(1,2)$, I also ended up with very high values for the padding.</p>
-<p>The next problem was, that I used <code>Conv2d</code> for up-sampling, but <code>Conv2d</code> is for down-sampling. <code>ConvTranspose2d</code> is for up-sampling, see <a href="#ref_6">[6]</a>. I corrected my implementation accordingly.</p>
+<p>The next problem was, that I used <code>Conv2d</code> for up-sampling, but <code>Conv2d</code> is for down-sampling. <code>ConvTranspose2d</code> is for up-sampling, see <a href="#ref_6">[6]</a> and <a href="#ref_7">[7]</a>. I corrected my implementation accordingly.</p>
 
 <p>By using <code>ConvTranspose2d</code> with the values for <code>stride</code> (1 or (1,2)) and <code>kernelsize</code>, and playing with <code>padding</code>, the resulting image keeps nearly the same dimension, shrinks or gets uneven dimensions. 
 
