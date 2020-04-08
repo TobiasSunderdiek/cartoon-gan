@@ -4,6 +4,8 @@ Within this repo, I try to implement a cartoon GAN \[1\].
 
 I created a github page for detailed documentation, please see https://tobiassunderdiek.github.io/cartoon-gan/ for details.
 
+![result.png](https://raw.githubusercontent.com/TobiasSunderdiek/cartoon-gan/gh-pages/assets/result.png "result example")
+
 ## Usage
 
 ### Step 1: Generate datasets
