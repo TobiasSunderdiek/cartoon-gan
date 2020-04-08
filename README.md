@@ -24,7 +24,7 @@ All scripts to create the images are resumeable.
 #### Photos
 
 - download and unzip coco annotations from \[3\]
-- configure annotations dir location in `PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER`
+- configure annotations dir location in `PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER` of `photo_downloader.py`
 - run `make photos` to download configurable amount of photos of persons
 
 ### Step 2: Train model
