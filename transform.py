@@ -92,4 +92,4 @@ if __name__=='__main__':
         pseudo_batched_img = pseudo_batched_img[None]
         result = G(pseudo_batched_img)
         result = transforms.ToPILImage()(result[0]).convert('RGB')
-        result.save('transformed_'+sys.argv[1])
+        result.save('transformed.'+img.format)
