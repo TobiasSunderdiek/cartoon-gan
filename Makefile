@@ -10,5 +10,8 @@ cartoons-smooth:
 photos:
 	python photo_downloader.py
 
+install-transform:
+	pip install -r requirements-transform.txt
+
 transform:
 	python transform.py $(IMAGE)
