@@ -35,9 +35,11 @@ All the steps are described in a [jupyter notebook on colab, please see here for
 
 ### Step 3: Test
 
-Pre-trained weights for the generator are available for download as part of [the release here.](https://github.com/TobiasSunderdiek/cartoon-gan/releases)
+- run `make install-transform`
+- download pre-trained weights, they are available for download as part of [the release here.](https://github.com/TobiasSunderdiek/cartoon-gan/releases).
+- run `make transform IMAGE=some_example_image_path`
 
-Testing with an image via file upload dialog can be done within the provided [jupyter notebook on colab, please see here for details.](https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/CartoonGAN.ipynb) Additional information about how to load the pre-trained weights can be found in the project documentation here: https://tobiassunderdiek.github.io/cartoon-gan/ .
+Additional information about how to load the pre-trained weights and transform images can be found in the project documentation here: https://tobiassunderdiek.github.io/cartoon-gan/ .
 
 ## References
 
