@@ -10,3 +10,4 @@ annotations/
 photos/
 __pycache__/
 coco.zip
+*.pth

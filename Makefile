@@ -9,3 +9,6 @@ cartoons-smooth:
 
 photos:
 	python photo_downloader.py
+
+transform:
+	python transform.py $(IMAGE)
