@@ -101,6 +101,7 @@
 			</ul>
 		</ul>
 	<li><a href="#tc6">Optimizer</a></li>
+	<li><a href="#tc7">Transforming an image from local filesystem</a></li>
 	<li><a href="#notes">Notes/next steps</a></li>
 	<li><a href="#refs">References</a></li>
 	<p>
@@ -474,6 +475,18 @@ As seen in the example images, the comic effect starts to kick in and the conten
 <p>In the paper, the used optimizer is not mentioned, I decide to choose adam.</p>
 
 <p>For hyperparameter-tuning, I decided to go with the same parameters mentioned in the DCGAN-paper <a href="#ref_13">[13]</a>.</p>
+
+<h2><a name="tc7">Transforming an image from local filesystem</a></h2>
+For transforming an image from local filesystem, pre-trained weights are provided <a href="https://github.com/TobiasSunderdiek/cartoon-gan/releases"> within the release here.</a>
+<ul>
+	<li>download and unzip <code>generator_release.pth.zip</code> to root path of this project</li>
+	<li>install necessary libs via <code>make install-transform<code></li>
+	<li>transform image (*.jpg, *.png) from local filesystem via <code>make transform IMAGE=path_to_image</code></li>
+		<ul>
+			<li>e.g.: <code>make transform IMAGE=~/Pictures/photo.jpg</code></li>
+		</ul>
+	<li><code>transformed.jpg</code> is created
+</ul>
 
 <h2><a name="notes">Notes/next steps</a></h2>
 	<ul>
