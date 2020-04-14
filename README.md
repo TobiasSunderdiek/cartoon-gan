@@ -41,6 +41,10 @@ All the steps are described in a [jupyter notebook on colab, please see here for
 
 Additional information about how to load the pre-trained weights and transform images can be found in the project documentation here: https://tobiassunderdiek.github.io/cartoon-gan/ .
 
+### Credits
+
+Thanks to the authors \[Chen et al., CVPR18\] of the paper for their great work.
+
 ## References
 
 \[Chen et al., CVPR18\] http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
