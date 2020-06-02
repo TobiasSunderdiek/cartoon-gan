@@ -151,7 +151,7 @@ This step is resumeable.
 <h3><a name="tc1_3"/>Photos</h3>
 In the paper, photos are downloaded from flickr. In my implementation I try to use the COCO <a href="#ref_3">[3]</a> dataset, especially the category <b>person</b>.<br />
 
-I get the photos for the dataset by following the COCO part as described in <a href="#ref_4">[4]</a>:<br />
+I get the photos for the dataset as follows:<br />
 <ul>
 	<li>download and unzip coco annotations from <a href="#ref_5">[5]</a></li>
 	<li>configure annotations dir location in <code>PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER</code> of <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/photo_downloader.py"><code>photo_downloader.py</code></a></li>
@@ -159,7 +159,9 @@ I get the photos for the dataset by following the COCO part as described in <a h
 	<li>configure where to store resulting .zip-file of images in <code>PHOTO_ZIPFILE_NAME</code></li>
 	<li>run <code>make photos</code> to download configurable amount of photos of persons</li>
 </ul>
-This step is resumeable.
+This step is resumeable. <br />
+My implementation for this COCO part download uses snippets for the main download part of the provided Demo-Implementation of the PythonAPI for the COCO-API from the project in <a href="#ref_4">[4]</a>, Credits and thanks to the authors! <br />
+<ul>
 <h2><a name="tc2"/>Prepare to train within Google Colab</h2>
 
 As Google Colab offers free GPU-usage in a jupyter notebook, I used this service and declared all the necessary elements e.g. the model or optimizer within a notebook. Transfering the training data and saving some results is done via Google Drive. Due to the whole training took about 24h, I made the processes in the notebook resumeable.
