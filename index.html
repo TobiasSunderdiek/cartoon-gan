@@ -154,12 +154,17 @@ In the paper, photos are downloaded from flickr. In my implementation I try to u
 I get the photos for the dataset as follows:<br />
 <ul>
 	<li>download and unzip coco annotations from <a href="#ref_5">[5]</a></li>
-	<li>configure annotations dir location in <code>PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER</code> of <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/photo_downloader.py"><code>photo_downloader.py</code></a></li>
+	<li>configure root-folder location of annotations-folder in <code>PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER</code> of <a href="https://github.com/TobiasSunderdiek/cartoon-gan/blob/master/photo_downloader.py"><code>photo_downloader.py</code></a></li>
+	<ul>
+		<li>
+			e.g.: downloaded and unzipped annotations-folder is <code>/tmp/annotations/</code>, then please configure <code>PATH_TO_COCO_ANNOTATIONS_ROOT_FOLDER</code> to <code>/tmp</code>
+		</li>
+	</ul>
 	<li>configure where to store photos in <code>PATH_TO_STORE_DOWNLOADED_PHOTOS</code></li>
 	<li>configure where to store resulting .zip-file of images in <code>PHOTO_ZIPFILE_NAME</code></li>
 	<li>run <code>make photos</code> to download configurable amount of photos of persons</li>
 </ul>
-This step is resumeable. <br />
+ <br />
 My implementation for this COCO part download uses snippets for the main download part of the provided Demo-Implementation of the PythonAPI for the COCO-API from the project in <a href="#ref_4">[4]</a>, Credits and thanks to the authors! <br />
 <ul>
 <h2><a name="tc2"/>Prepare to train within Google Colab</h2>
