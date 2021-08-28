@@ -10,7 +10,7 @@ I created a github page for detailed documentation, please see https://tobiassun
 
 ### Step 1: Generate datasets
 
-All scripts to create the images are resumeable.
+All scripts to create the images are resumeable. It is possible to run `make cartoons` and `make photos` in parallel by calling them manually in separate terminals.
 
 #### Cartoon images
 
